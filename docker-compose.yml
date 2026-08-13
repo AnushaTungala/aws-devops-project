@@ -1,0 +1,6 @@
+services:
+  web:
+    build: .
+    container_name: aws-devops-compose
+    ports:
+      - "8090:80"
