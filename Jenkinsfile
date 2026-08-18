@@ -54,7 +54,7 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                bat 'curl -s -o NUL -w "Site responded with HTTP %{http_code}\n" http://localhost:8090/'
+                bat 'powershell -Command "$code = (Invoke-WebRequest -Uri http://localhost:8090/ -UseBasicParsing -TimeoutSec 15).StatusCode; Write-Host Site-responded-with-HTTP-status-$code; exit $(if ($code -ne 200) { 1 } else { 0 })"'
                 echo "Deployment verified on port ${env.CONTAINER_PORT}"
             }
         }
