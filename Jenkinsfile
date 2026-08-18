@@ -41,7 +41,7 @@ pipeline {
             steps {
                 bat 'docker compose config --quiet'
                 bat 'docker compose up -d'
-                bat 'powershell -Command "$r = (Invoke-WebRequest -Uri http://localhost:8090/ -UseBasicParsing -TimeoutSec 15).StatusCode; Write-Host (''HTTP status: '' + $r); if ($r -ne 200) { exit 1 }"'
+                bat 'powershell -Command "Start-Sleep -Seconds 3; exit $(if ((Invoke-WebRequest -Uri http://localhost:8090/ -UseBasicParsing -TimeoutSec 15).StatusCode -ne 200) { 1 } else { 0 })"'
             }
         }
 
