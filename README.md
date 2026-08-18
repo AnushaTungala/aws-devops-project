@@ -28,3 +28,15 @@ The application will be:
 ## Current Status
 
 Static application created and tested locally.
+
+## Jenkins CI/CD Pipeline
+
+The repository contains a declarative `Jenkinsfile` checked out by the Jenkins
+pipeline job `chatterly-aws-devops-pipeline` (GitHub -> Jenkins integration).
+
+Pipeline stages: Checkout -> Build Docker Image -> Test / Smoke Check ->
+Deploy Application -> Verify Deployment -> Push to Registry (optional).
+
+Webhook-based automatic build: a push to `main` delivers an event to the Jenkins
+`/github-webhook/` endpoint, which starts the pipeline automatically via the
+`githubPush()` trigger in the Jenkinsfile.
